@@ -23,8 +23,8 @@ class NewsItem extends StatelessWidget{
   factory NewsItem.fromArticle(Article article) {
     developer.log('Creating NewsItems from article: ${article.urlToImage}');
     return NewsItem(
-      title: prettifyName(article.title!),
-      subtitle: prettifyName(article.description ?? 'No description'),
+      title: article.title!,
+      subtitle: article.description ?? 'No description',
       imageUrl: article.urlToImage ?? 'https://picsum.photos/250?image=${Random().nextInt(9)}',// Random number from 1 to 9
     );
   }
@@ -44,8 +44,10 @@ class NewsItem extends StatelessWidget{
             flex: 2,
             child: Column(
               children: [
-                Text(title, style: Theme.of(context).textTheme.titleLarge),
-                Text(subtitle, style: Theme.of(context).textTheme.titleMedium),
+                Text(title, style: Theme.of(context).textTheme.titleLarge,
+                  overflow: TextOverflow.ellipsis, maxLines: 1),
+                Text(subtitle, style: Theme.of(context).textTheme.titleMedium,
+                  overflow: TextOverflow.fade, maxLines: 3,),
               ],
             ),
           ),

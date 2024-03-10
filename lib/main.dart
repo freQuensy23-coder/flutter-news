@@ -7,31 +7,31 @@ import 'dart:developer' as developer;
 
 import 'newsItemWidget.dart';
 
-void main() => runApp(const CardExampleApp());
+void main() => runApp(const App());
 
-class CardExampleApp extends StatelessWidget {
-  const CardExampleApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: const Text('News')),
-        body: const CardExample(),
+        body: const NewsScrollableListWidget(),
       ),
     );
   }
 }
 
 
-class CardExample extends StatefulWidget {
-  const CardExample({super.key});
+class NewsScrollableListWidget extends StatefulWidget {
+  const NewsScrollableListWidget({super.key});
 
   @override
-  State<CardExample> createState() => _CardExampleState();
+  State<NewsScrollableListWidget> createState() => _CardExampleState();
 }
 
-class _CardExampleState extends State<CardExample> {
+class _CardExampleState extends State<NewsScrollableListWidget> {
   List<Article> news = [];
 
   @override
