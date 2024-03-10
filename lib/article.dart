@@ -1,5 +1,5 @@
 class Article {
-    final String? title;
+    final String title;
     final String? description;
     final String url; // Assuming every article must have a URL
     final String? urlToImage;
@@ -7,7 +7,7 @@ class Article {
     final String? content;
 
     Article({
-        this.title,
+        required this.title,
         this.description,
         required this.url,
         this.urlToImage,

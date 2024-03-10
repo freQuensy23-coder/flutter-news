@@ -43,7 +43,8 @@ class _CardExampleState extends State<NewsScrollableListWidget> {
   Future<void> _fetchNews() async {
     NewsApi newsApi = NewsApi('caa4f3ab268e4168bce63b547dd1e8a0');
     var fetchedNews = await newsApi.fetchTopHeadlines('us');
-    setState(() {news = fetchedNews;});
+    setState(() {
+      news= fetchedNews;});
     developer.log('Fetched $news');
   }
 
@@ -51,7 +52,7 @@ class _CardExampleState extends State<NewsScrollableListWidget> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: news.map((article) => NewsItem.fromArticle(article)).toList(),
+        children: news.map((article) => NewsItem(article: article)).toList(),
       ),
     );
   }

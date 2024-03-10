@@ -1,57 +1,53 @@
 import 'package:flutter/material.dart';
-import 'article.dart';
+import 'package:untitled/mockImages.dart';
 import 'dart:developer' as developer;
-import 'dart:math';
 
+import 'article.dart';
+import 'news_screen.dart';
 
-String prettifyName(String name) {
-  if (name.length < 20) {
-    return name;
-  }
-  return '${name.substring(0, 18)}...';
-}
+class  NewsItem extends StatelessWidget{
+  final Article article;
 
-class NewsItem extends StatelessWidget{
-  final String title;
-  final String subtitle;
-  final String imageUrl;
-  const NewsItem({super.key,
-    required this.title,
-    this.subtitle='No subtitle',
-    this.imageUrl='https://picsum.photos/250?image=9'});
-
-  factory NewsItem.fromArticle(Article article) {
-    developer.log('Creating NewsItems from article: ${article.urlToImage}');
-    return NewsItem(
-      title: article.title!,
-      subtitle: article.description ?? 'No description',
-      imageUrl: article.urlToImage ?? 'https://picsum.photos/250?image=${Random().nextInt(9)}',// Random number from 1 to 9
-    );
-  }
+  const NewsItem({super.key, required this.article});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity, // Fit screen width
       height: 128,
-      child: Card(
-        child: Row(children: [
-          Expanded(
-            flex: 1,
-            child: Image.network(imageUrl, fit: BoxFit.cover),
+      child:
+      GestureDetector(
+        onTap: () {
+          developer.log('Tapped on ${article.title}');
+          // Navigate to the details screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NewsScreen(article: article),),
+          );
+        },
+        child:
+          Card(
+            child: Row(children: [
+              Expanded(
+                flex: 1,
+                child: Image.network(article.urlToImage ?? mockImageUrl(),
+                    fit: BoxFit.cover),
+              ),
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    Text(article.title,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      overflow: TextOverflow.ellipsis, maxLines: 1),
+                    Text(article.description ?? '',
+                      style: Theme.of(context).textTheme.titleMedium,
+                      overflow: TextOverflow.fade, maxLines: 3,),
+                  ],
+                ),
+              ),
+            ],),
           ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                Text(title, style: Theme.of(context).textTheme.titleLarge,
-                  overflow: TextOverflow.ellipsis, maxLines: 1),
-                Text(subtitle, style: Theme.of(context).textTheme.titleMedium,
-                  overflow: TextOverflow.fade, maxLines: 3,),
-              ],
-            ),
-          ),
-        ],),
       ),
     );
   }
